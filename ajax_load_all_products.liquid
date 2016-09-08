@@ -1,0 +1,49 @@
+{% layout none %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+{% paginate collection.products by 50 %}
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  		<thead>
+    		<tr>
+      			<td>Sku</td>
+      			<td>Qty</td>
+      			<td>Cost</td>
+      			<td>Product Name</td>
+    		</tr>
+      </thead>
+				<tbody id="product">
+			{% for product in collection.products %}
+				{% for variant in product.variants %}
+          			
+    				<tr>
+      					<td>{{variant.id}}</td>
+      					<td>{{variant.inventory_quantity}}</td>
+      					<td>{{variant.price}}</td>
+      					<td>{{product.title}} ({{variant.title}})</td>
+    				</tr>
+      		{% endfor %}
+		{% endfor %}
+  		</tbody>
+      <tbody id="product-list-foot"><tr><td colspan="4"></td></tr></tbody>
+	</table>
+<script>
+  $(document).ready(function(){
+						for (i = 2; i <= {{ paginate.pages }}; i++) { // NEEDS TO LIE WITHIN THE PAGINATE PARAMETERS
+    						$.ajax({
+      							type: 'GET',
+     							url: 'http://www.fjallraven.us/{{ collection.url }}?page='+i,
+      							success: function(data) {
+        							var filteredData = $(data).filter("#product"); // THIS IS THE DIV SURROUNDING THE ROWS YOU WANT
+                                    var tableget = $(data).filter("table"),
+                                        tbodyget = $(tableget).find('tbody#product');
+        							tbodyget.insertBefore( $("#product-list-foot") ); // THIS IS A LAST ITEM AFTER THE LIST
+      							},
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                  console.log(textStatus, errorThrown);
+                                },
+      							dataType: "html"
+    						});
+						} // PUT A LISTENER ON THE AJAX IF YOU CARE ABOUT THEM BEING IN ALPHABETICAL ORDER
+  });
+					</script>
+{% endpaginate %}
