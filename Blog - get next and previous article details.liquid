@@ -1,0 +1,31 @@
+{% assign current_found = false %}
+    {% assign done = false %}
+    {% for a in blog.articles %}
+    	{% if current_found and done == false %}
+    		{% assign next_article = a %}
+    		{% assign done = true %}
+    	{% endif %}
+    	{% unless done %}
+    		{% if a.id == article.id %}
+    			{% assign current_found = true %}
+    		{% else %}
+    			{% assign prev_article = a %}
+    		{% endif %}
+    	{% endunless %}
+    {% endfor %}
+    
+    {% if prev_article %}
+    	<a href="{{ prev_article.url }}">
+        Previous: 
+        {{ prev_article.title }}
+        {{ prev_article.excerpt  }}
+      </a>
+    {% endif %}
+
+    {% if next_article %}
+    	<a href="{{ next_article.url }}">
+        Next: 
+        {{ next_article.title }}
+        {{ next_article.excerpt }}
+      </a>
+    {% endif %}
