@@ -1,0 +1,26 @@
+<!-- START UK NOTIFICATION -->
+<script>
+jQuery.ajax( {
+  url: '//web.archive.org/web/20161202214232/https://freegeoip.net/json/',
+  type: 'POST',
+  dataType: 'jsonp',
+  success: function(location) {
+    // If the visitor is browsing from the UK.
+    if (location.country_code === 'UK') {
+      if (jQuery.cookie('intl_popup')) {
+    } else {
+        jQuery.cookie('intl_popup', 'true', { expires: 1});
+        jQuery.fancybox.open(jQuery('#message'));    } 
+    }
+  }
+} );
+</script>
+
+<div style="display:none;">
+  <div id="message" style="padding:30px;">
+    <h1>Hello British Shopper!</h1>
+    <p>message</p>
+  </div>
+</div>
+
+<!-- END UK NOTIFICATION -->
