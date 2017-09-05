@@ -1,7 +1,7 @@
 <!-- START UK NOTIFICATION -->
 <script>
 jQuery.ajax( {
-  url: '//web.archive.org/web/20161202214232/https://freegeoip.net/json/',
+  url: 'https://freegeoip.net/json/',
   type: 'POST',
   dataType: 'jsonp',
   success: function(location) {
