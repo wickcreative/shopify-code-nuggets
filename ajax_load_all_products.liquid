@@ -44,7 +44,7 @@
             for (i = 2; i <= {{ paginate.pages }}; i++) { // NEEDS TO LIE WITHIN THE PAGINATE PARAMETERS
                 $.ajax({
                     type: 'GET',
-                  url: 'http://www.fjallraven.us/{{ collection.url }}?page='+i,
+                  url: '{{ shop.url }}{{ collection.url }}?page='+i,
                     success: function(data) {
                       var filteredData = $(data).filter("#product"); // THIS IS THE DIV SURROUNDING THE ROWS YOU WANT
                                     var tableget = $(data).filter("table"),
