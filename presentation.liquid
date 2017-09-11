@@ -1,0 +1,30 @@
+{% layout none %}
+<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+<div id="result">Waiting for password input...</div>
+<div id="hiddenContent" style="display: none">
+<!-- Use a tag to push in the images max height ex. 5126 -->  
+<div style="height:{{article.tags}}px;display:block;min-width:1000px;background:url({{ article | img_url: 'master' }}) top center no-repeat;"></div>
+</div>
+<br />
+<script>
+  	var passwords = new Array();
+  	passwords[0] = "{{article.content}}";
+	var passwordInput=prompt("Please enter your password...");
+	if (inArray(passwordInput, passwords)===true) {
+    document.getElementById("result").innerHTML="";
+    document.getElementById('hiddenContent').style.display = "block"
+	}
+	else {
+    document.getElementById("result").innerHTML="Yeah... that's not the correct password. So who are you, really?";
+	}
+	function inArray(variable, array) {
+    	var length = array.length;
+    	for(var i = 0; i < length; i++) {
+        	if(array[i] == variable) return true;
+    	}
+    	return false;
+	}
+</script>
+<style>
+  body{ margin:0px;}
+</style>
