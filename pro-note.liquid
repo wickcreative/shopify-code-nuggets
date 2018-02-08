@@ -1,0 +1,93 @@
+<style type="text/css">
+	.note{
+		padding: 6px 12px 6px 40px;
+		text-align: center;
+		margin-bottom : 0px;
+		text-align : center;
+	}
+	.retail-promo-text{
+		display: none;
+	}
+	.ajaxcart__content .retail-promo-text{
+		margin-top: 40px;
+	}
+</style>
+
+{% if customer  %}
+
+	{% if customer.tags contains "Discount-Shop" %}
+
+		{% if customer.tags contains "55off"%}
+			<div class="note warning">
+				<p>Welcome {{ customer.first_name }}, {{ settings.fivefiveoffactive }}</p>
+			</div>
+		{% else %}
+			<div class="note warning">
+				<p>Welcome {{ customer.first_name }}, {{ settings.fivefiveoffinactive }}</p>
+			</div>
+		{% endif %}
+
+	{% elsif customer.tags contains "Experticity-expired" %}
+			<div class="note warning">
+				<p>Welcome {{ customer.first_name }}, {{ settings.experticityinactive}}</p>
+			</div>
+	{% elsif customer.tags contains "50off" or customer.tags contains "Discount-Pro" %}
+		<div class="note warning">
+			<p>Welcome {{ customer.first_name }}, {{ settings.fiftyoff }}</p>
+		</div>
+
+	{% elsif customer.tags contains "40off" or customer.tags contains "Discount-Industry" %}
+		<div class="note warning">
+			<p>Welcome {{ customer.first_name }}, {{ settings.fourtyoff }}</p>
+		</div>
+	{% elsif customer.tags contains "35off" or customer.tags contains "Experticity" or customer.tags contains "Discount-Experticity" %}
+		<div class="note warning">
+			<p>Welcome {{ customer.first_name }},  {{ settings.experticityactive }}</p>
+		</div>
+  {% else %}
+		<div class="note warning retail-promo-text js-promo-text">
+		</div>
+  {% endif %}
+
+{% else %}
+
+	{% if template contains 'proregistration' or  template contains 'enableaccount' or template contains 'customers' %}
+	{% else %}
+		<div class="note warning retail-promo-text js-promo-text">
+		</div>
+	{% endif %}
+
+{% endif %}
+
+<script type="text/javascript">
+	function TMBR_updatePromotext(){
+		// ajaxify.js.lquiquid - 1003 - trigger callback function to check promo text
+		// cart.liquid message as well
+
+		var promoactive = false,
+				pitchtext ='<p>Spend $50 and get a free Gobbler or Gobblette.</p>',
+				spendtrigger = 5000,
+				carttotal = '0',
+				promotext = $(".retail-promo-text"),
+				acheivetext ='<p><b>Congratulations !</b> Your order qualifies for a <a href="https://shop.flylowgear.com/collections/gobbler-promo"> free Gobbler or Gobblette</a>.<br /><a href="https://shop.flylowgear.com/collections/gobbler-promo">Click here to add one to your cart</a> and use code <b>Gobbler16</b> at checkout.</p>';
+
+		if(promoactive){
+		  $.getJSON("/cart.js", function(cart) {
+				carttotal = cart.total_price;
+
+		  	if(carttotal == 0){
+			    promotext.html( pitchtext ).show();
+		  	} else if ( carttotal < spendtrigger ){
+		  		var diff = (spendtrigger - carttotal) / 100;
+		  		promotext.html('<p>Spend $' + diff + ' more to get your free Gobbler or Gobblette.</p>' ).show();
+		  	} else if ( carttotal >= spendtrigger ){
+		  		promotext.html( acheivetext ).show();
+		  	}
+		  });
+		}
+
+  }
+
+  TMBR_updatePromotext();
+
+</script>
