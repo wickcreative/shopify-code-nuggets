@@ -1,0 +1,45 @@
+  {
+    "name": "Pro Messages",
+    "settings": [
+      {
+        "type": "header",
+        "content": "All start with 'Welcome [customer.firstname],'"
+      },
+      {
+        "type": "textarea",
+        "id": "fivefiveoffactive",
+        "label": "55 Off Active Message",
+        "default": "all prices in store reflect your discount of 55% off retail."
+      },
+      {
+        "type": "textarea",
+        "id": "fivefiveoffinactive",
+        "label": "55 Off Inactive Message",
+        "default": "Your shop account has been deactivated.<br \/><a href='https:\/\/flylowgear.com\/pro-create\/'>Please click here to Re-Apply.<\/a>"
+      },
+      {
+        "type": "textarea",
+        "id": "experticityactive",
+        "label": "Experticity Active Message",
+        "default": "all prices in store reflect your discount of 35% off retail."
+      },
+      {
+        "type": "textarea",
+        "id": "experticityinactive",
+        "label": "Experticity Inactive Message",
+        "default": "Your Experticity account has been deactivated.<br \/><a href='https:\/\/www.experticity.com\/'>Please re-enter from Experticity to reactivate.<\/a>"
+      },
+      {
+        "type": "textarea",
+        "id": "fourtyoff",
+        "label": "40 Off Message",
+        "default": "all prices in store reflect your discount of 40% off retail."
+      },
+      {
+        "type": "textarea",
+        "id": "fiftyoff",
+        "label": "50 Off Message",
+        "default": "all prices in store reflect your discount of 50% off retail."
+      }
+    ]
+  },
