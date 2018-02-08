@@ -1,0 +1,186 @@
+{%- comment -%}
+
+Assign the price levels needed here for the customer.
+
+{%- endcomment -%}
+
+
+	{% assign custlevel = "none" %}
+	{% assign pro = false %}
+	{% assign nopro = false %}
+	{% assign promessages = false %}
+
+    {% if customer %}
+        {% for tags in customer.tags %}
+            {% if tags contains "Discount-Pro" %}
+                {% assign custlevel = "50" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "50off" %}
+                {% assign custlevel = "50" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "Discount-Industry" %}
+                {% assign custlevel = "40" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "40off" %}
+                {% assign custlevel = "40" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "Discount-Friends" %}
+                {% assign custlevel = "40" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "Discount-Shop" %}
+                {% assign custlevel = "55" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "55off" %}
+                {% assign custlevel = "55" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags == "Experticity" %}
+                {% assign custlevel = "40" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "Discount-Experticity" %}
+                {% assign custlevel = "40" %}
+				{% assign pro = true %}
+            {% endif %}
+            {% if tags contains "35off" %}
+                {% assign custlevel = "35" %}
+				{% assign pro = true %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+
+{%- comment -%}
+
+Check if discounts are allowed on this product.
+
+{%- endcomment -%}
+
+	{% for tags in product.tags %}
+    	{% if tags contains "nodeal" %}
+        	{% assign nopro = true %}
+        {% endif %}
+
+		{% if tags contains "10add" %}
+			{% if custlevel = "35" %}
+				{% assign custlevel = "45" %}
+			{% elsif custlevel = "40" %}
+				{% assign custlevel = "50" %}
+			{% elsif custlevel = "50" %}
+				{% assign custlevel = "60" %}
+			{% elsif custlevel = "55" %}
+				{% assign custlevel = "65" %}
+			{% endif %}
+		{% endif %}
+
+		{% if tags contains "10remove" %}
+			{% if custlevel = "35" %}
+				{% assign custlevel = "25" %}
+			{% elsif custlevel = "40" %}
+				{% assign custlevel = "30" %}
+			{% elsif custlevel = "50" %}
+				{% assign custlevel = "40" %}
+			{% elsif custlevel = "55" %}
+				{% assign custlevel = "45" %}
+			{% endif %}
+		{% endif %}
+
+    {% endfor %}
+
+	{% for tags in item.product.tags %}
+    	{% if tags contains "nodeal" %}
+        	{% assign nopro = true %}
+        {% endif %}
+
+		{% if tags contains "10add" %}
+			{% if custlevel = "35" %}
+				{% assign custlevel = "45" %}
+			{% elsif custlevel = "40" %}
+				{% assign custlevel = "50" %}
+			{% elsif custlevel = "50" %}
+				{% assign custlevel = "60" %}
+			{% elsif custlevel = "55" %}
+				{% assign custlevel = "65" %}
+			{% endif %}
+		{% endif %}
+
+		{% if tags contains "10remove" %}
+			{% if custlevel = "35" %}
+				{% assign custlevel = "25" %}
+			{% elsif custlevel = "40" %}
+				{% assign custlevel = "30" %}
+			{% elsif custlevel = "50" %}
+				{% assign custlevel = "40" %}
+			{% elsif custlevel = "55" %}
+				{% assign custlevel = "45" %}
+			{% endif %}
+		{% endif %}
+
+    {% endfor %}
+
+
+
+
+{%- comment -%}
+
+Check what template we're on to grab the right price call
+
+{%- endcomment -%}
+
+	{% if template contains 'collection' %}
+		{% assign price = product.price %}
+	{% elsif template contains 'product' %}
+  		{% assign price = variant.price %}
+	{% elsif template contains 'cart' %}
+  		{% assign price = item.price %}
+	{% else %}
+		{% assign price = product.price %}
+	{% endif %}
+
+
+
+
+{%- comment -%}
+
+	Ok discount time
+
+{%- endcomment -%}
+
+
+
+{% if pro %}
+	{% if nopro %}
+		{% assign money_price = price | money %}
+	{% else %}
+		{% assign promessages = true %}
+    	{% capture base %}1.{{custlevel}}{%endcapture%}
+        {% assign disc = base | times: 1 %}
+        {% assign discadd = price | times: disc %}
+        {% assign discamt = discadd | minus: price %}
+        {% assign money_price = price | minus: discamt | money %}
+        {% assign money_pricebase = price | money %}
+	{% endif %}
+{% else %}
+	{% assign money_price = price | money %}
+{% endif %}
+
+
+
+
+{%- comment -%}
+
+Turn on Messages for pros
+
+{%- endcomment -%}
+
+
+	{% if promessage %}
+
+	{% endif %}
+
