@@ -1,0 +1,87 @@
+<div id="subscribe_popup" class="white-popup mfp-hide">
+    {% if settings.email_popup_image %}
+  		<div id="introimage">
+  			<p><img src="{{ 'popup-image.jpg' | asset_url }}"></p>
+  		</div>
+  	{% endif %}
+		<div class="sneakpeek" style="display:none;">
+			<h3>Yay! Check Out Your Sneak Peek!</h3>
+			<div class="peekgallery">
+			{% for k in (1..8) %}
+			{% capture _enable2 %}upcoming_carousel_enable_{{ k }}{% endcapture %}
+			{% capture _icon2 %}upcoming_{{ k }}.jpg{% endcapture %}
+			{% capture _text2 %}upcoming_carousel_text_{{ k }}{% endcapture %}
+			{% assign enable = settings[_enable2] %}
+			{% if enable %}
+			<div><img style="text-align:center;" src="{{ _icon2 | asset_img_url: '300x' }}" title="{{ settings[_text2] }}">{{ settings[_text2] }}</div>
+			{% endif %}
+			{% endfor %}  
+			</div>  
+			<script>
+			$('.peekgallery').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 4000,
+ 			arrows:true,
+			dots:true,
+			});
+			</script> 
+		</div>
+  <div id="introcopy">
+    <h3>Join Our Newsletter to Instantly Sneak Peek This Months Bag!</h3>
+    <p>{{ 'layout.footer.mailing_list_text' | t }}</p>    <!-- BEGIN #subs-container -->
+  </div>
+        {% if settings.newsletter_form_action != blank %}
+          {% assign form_action = settings.newsletter_form_action %}
+        {% else %}
+          {% assign form_action = '#' %}
+        {% endif %}
+        <div id="section-newsletter">
+               	{% if settings.newsletter_form_action != blank %}
+                	{% assign form_action = settings.newsletter_form_action %}
+             	{% else %}
+            		{% assign form_action = '#' %}
+            	{% endif %}
+           	<form action="//bootaybag.us10.list-manage.com/subscribe/post-json?u=755886f697f85ee9d65d6fcf6&amp;id=5c8396d8c8&c=?" method="get" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" class="input-group">
+                <input type="email" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.newsletter_email' | t }}" name="EMAIL" id="mail" class="input-group-field" aria-label="{{ 'general.newsletter_form.newsletter_email' | t }}" autocorrect="off" autocapitalize="off">
+             	<span class="input-group-btn">
+                 	<input type="submit" class="btn" name="subscribe" id="subscribe" value="{{ 'general.newsletter_form.submit' | t }}">
+            	</span>
+       		</form>
+     	</div>
+    <div class="clear"></div>
+    <div class="fb-like" data-href="{{ shop.url }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+</div>
+
+<script>
+	jQuery("#mc-embedded-subscribe-form").submit(function(e) {
+		var url = jQuery(this).prop('action'); // the script where you handle the form input.
+		jQuery.ajax({
+			type: "GET",
+			url: url,
+			data: jQuery("#mc-embedded-subscribe-form").serialize(), // serializes the form's elements.
+			dataType: "jsonp",
+			success: function() {
+				$( "#introimage" ).hide();
+				$( "#introcopy" ).hide();              
+				$( ".sneakpeek" ).show();
+             	$( "#section-newsletter" ).hide();
+          	}
+		});
+		e.preventDefault(); // avoid to execute the actual submit of the form.
+	});
+</script>
+
+<style>
+  .peekgallery {
+        text-align: center;
+    margin: 0 auto;
+    width: 300px;
+  }
+  .sneakpeek {
+        text-align: center;
+    margin: 40px;
+  }
+  
+</style>
