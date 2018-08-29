@@ -1,0 +1,60 @@
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="//cdn.shopify.com/s/files/1/0076/8812/6522/t/2/assets/vendor.js?14070102158202795841"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="//cdn.shopify.com/s/files/1/0076/8812/6522/t/2/assets/vendor.js?14070102158202795841"></script><![endif]-->
+
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="//cdn.shopify.com/s/files/1/0076/8812/6522/t/2/assets/theme.js?14070102158202795841" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="//cdn.shopify.com/s/files/1/0076/8812/6522/t/2/assets/theme.js?14070102158202795841"></script><![endif]-->
+
+  <script src="//cdn.shopify.com/s/assets/themes_support/api.jquery-0ea851da22ae87c0290f4eeb24bc8b513ca182f3eb721d147c009ae0f5ce14f9.js" type="text/javascript"></script>
+
+<script type="application/json" id="OrderJson">
+<input type='text' name='fname' value='
+  {
+    "header": {
+      "h1_REFERENCE_NBR":"{{order.order_number}}",
+      "h6_CUSTOMER":"LEMS",
+      "h7_FACILITY":"FR2",
+      "h22_SHIP_LASTNAME":"{{order.customer.last_name}}",
+      "h23_SHIP_FIRSTNAME":"{{order.customer.first_name}}",
+      "h24_SHIP_COMPANY":"{{ order.billing_address.company }}",
+      "h25_SHIP_ADDRESS1":"{{ order.billing_address.street }}",
+      "h27_SHIP_CITY":"{{ order.billing_address.city }}",
+      "h28_SHIP_STATE":"{{ order.billing_address.province }}",
+      "h29_SHIP_ZIPCODE":"{{ order.billing_address.zip }}",
+      "h30_SHIP_COUNTRY":"{{ order.billing_address.country }}",
+      "h33_SHIP_EMAIL":"{{order.email}}",
+      "h51_SHIP_CARRIER":"FDXM",
+      "h52_SHIP_SRVCODE":"2010",
+      "h65_RESERVED_1":"SHOPIFY",
+      "h93_PAYMENT_AMOUNT":"{{order.total_price}}",
+	 "h94_SUBTOTAL":"{{order.subtotal_price}}",
+	  "h96_SHIP_FEE":"{{order.shipping_price}}",
+	 "h97_TOTAL":"{{order.total_price}}"
+    },
+    "details":[
+      {% for line_item in order.line_items %}{
+        "d114_ITEM":"{{ line_item.sku | replace: 'w', '' }}",
+        "d116_UNIT_OF_MEASURE":"EA",
+        "d117_QUANTITY_ORDERED":"{{ line_item.quantity }}",
+        "d130_UPC":"{{ line_item.variant.barcode }}",
+	"d160_ITEM_COST_PER_UOM":"{{line_item.original_price}}",
+	"d161_LINE_ITEM_SUBTOTAL":"{{line_item.price}}"
+      }{% unless forloop.last %},{% endunless %}{% endfor %}
+    ]
+  }
+  '>
+</script>
+<script>
+  $(window).load(function(){
+    $.ajax('https://hooks.zapier.com/hooks/catch/50037/gc0j61/', {
+      type: 'post',
+      data: $('#OrderJson').html(),
+      dataType: 'json',
+      success: function(data) { 
+        console.log(data);
+      },
+      fail: function(data) { 
+        console.log(data);
+      }
+    })
+  });
+</script>
