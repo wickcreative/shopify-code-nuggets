@@ -1,0 +1,27 @@
+customer = Input.cart.customer
+wholesale_methods = ['Net30', 'Net-45', 'Net-60'] # list of wholesale payment names
+wholesale_tags = ['Wholesale (Net-30)', 'Wholesale (Net-45)', 'Wholesale (Net-60)'] # list of wholesale tags that correlate 1:1 to the wholesale_methods variable
+if customer.nil? || !(customer.tags & wholesale_tags).any?
+  Output.payment_gateways = Input.payment_gateways.delete_if do |payment_gateway|
+    case payment_gateway.name
+      when *wholesale_methods
+        true
+      else
+        false
+      end
+  end
+else
+  wholesale_tags.each_with_index do |value, index|
+    if customer.tags.include? value
+      Output.payment_gateways = Input.payment_gateways.delete_if do |payment_gateway|
+        case payment_gateway.name
+          when wholesale_methods[index]
+            false
+          else
+            true
+          end
+      end
+      break
+    end
+  end
+end
