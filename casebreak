@@ -1,0 +1,160 @@
+{% comment%}
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+FIGURE OUT IF WHOLESALE OR NOT
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+{% endcomment %}
+
+
+{% assign whcusty = false %}
+{% for tag in customer.tags %}
+	{% if tag == "OG Wholesale" or tag == "wholesale" %}
+		{% assign whcusty = true %}
+		{% break %}
+	{% endif %}
+{% endfor %}
+
+
+
+
+{% comment%}
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+START LOOP IF WHOLESALE
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+{% endcomment %}
+
+
+
+{% if whcusty %}
+
+
+
+{% comment%}
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+DEFINE THE PARAMETERS
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+{% endcomment %}
+
+
+	{% assign havecbfee = false %}
+	{% assign bulk = false %}
+	{% assign casebroke = false %}
+
+    {% for item in cart.items %}
+		{% if item.product.id == 2981748163 %}
+			{% if item.quantity > 9 %}
+        		{% assign bulk = true %}
+      		{% endif %}
+			{% assign tens = item.quantity | modulo:10 %}
+            {% unless tens == 0 %}
+				{% assign casebroke = true %}
+			{% endunless %}
+		{% endif %}
+		{% if item.product.id == 2097218650185 %}
+			{% if item.quantity > 9 %}
+        		{% assign bulk = true %}
+      		{% endif %}
+			{% assign tens = item.quantity | modulo:10 %}
+            {% unless tens == 0 %}
+				{% assign casebroke = true %}
+			{% endunless %}
+		{% endif %}
+        {% if item.product.id == 2141718315081 %}
+            {% assign havecbfee = true %}
+        {% endif %}
+    {% endfor %}
+
+
+
+{% comment%}
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+RUN THE LOGIC
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+{% endcomment %}
+
+  {% assign product = all_products['case-break-free'] %}
+  {% assign variant_id = product.variants.first.id %}
+	{% if bulk %}
+		{% if havecbfee %}
+			{% if casebroke == false %}
+				{% comment%}
+					Bulk Order, Person has a case break fee but hasn't broke a case.
+					Remove case break product
+				{% endcomment %}
+            	<script>
+            	(function($) {
+                  console.log('i ran');
+                  var params2 = {
+                    type: 'POST',
+                    url: '/cart/update.js',
+                    data: { updates: { {{ variant_id }}: 0 } },
+                    dataType: 'json',
+                    success: function(stuff) { 
+                      window.location.href = '/cart';
+                    }
+                  };
+                  $.ajax(params2);
+                })(jQuery);
+                </script>
+
+			{% endif %}
+		{% else %}
+			{% if casebroke == true %}
+				{% comment%}
+					Bulk Order, Person does not have a case break fee but has broken a case.
+					Add case break product
+				{% endcomment %}
+
+            	<script>
+            	(function($) {
+                  var cartItems = {{ cart.items | json }},
+                      qtyInTheCart = 0,
+                      cartUpdates = {};
+                  for (var i=0; i<cartItems.length; i++) {
+                    if ( cartItems[i].id === {{ variant_id }} ) {
+                      qtyInTheCart = cartItems[i].quantity;
+                      break;
+                    }
+                  }
+                  if ( ( cartItems.length === 1 ) && ( qtyInTheCart > 0 ) ) {
+                    cartUpdates = { {{ variant_id }}: 0 }
+                  }
+                  else if ( ( cartItems.length >= 1 ) && ( qtyInTheCart !== 1 ) ) {
+                    cartUpdates = { {{ variant_id }}: 1 }
+                  }
+                  else {
+                    return;
+                  }
+                  var params = {
+                    type: 'POST',
+                    url: '/cart/update.js',
+                    data: { updates: cartUpdates },
+                    dataType: 'json',
+                    success: function(stuff) { 
+                      window.location.href = '/cart';
+                    }
+                  };
+                  $.ajax(params);
+                })(jQuery);
+                </script>
+			{% endif %}
+		{% endif %}
+	{% else %}
+		{% if havecbfee %}
+          <script>
+            (function($) {
+              console.log('i ran');
+              var params2 = {
+                type: 'POST',
+                url: '/cart/update.js',
+                data: { updates: { {{ variant_id }}: 0 } },
+                dataType: 'json',
+                success: function(stuff) { 
+                  window.location.href = '/cart';
+                }
+              };
+              $.ajax(params2);
+            })(jQuery);
+          </script>
+		{% endif %}
+	{% endif %}
+{% endif %}
