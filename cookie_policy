@@ -1,0 +1,74 @@
+///////Add into theme.liquid
+{% if settings.cookiepolicy %}
+  {% include 'cookiepolicy' %}
+{% endif %}
+
+//// Add into settings_schema.json
+  {
+    "name": "Cookie Policy",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cookiepolicy",
+        "label": "Enable Footer Cookie Policy",
+        "default": false
+      },
+      {
+        "type": "textarea",
+        "id": "cookiepolicytext",
+        "label": "Cookie Policy text",
+        "default": "We use cookies and similar technologies to provide the best consumer experience.  Continuing to use our site means you agree to our use of cookies."
+      },
+      {
+        "type": "text",
+        "id": "cookiepolicybutton",
+        "label": "Cookie Policy button",
+        "default": "Accept & Close"
+      },
+      {
+        "type": "text",
+        "id": "cookiepolicytl",
+        "label": "Cookie Policy text link",
+        "default": "See our cookie policy for more information"
+      },
+      {
+        "type": "url",
+        "id": "cookiepolicylink",
+        "label": "Cookie Policy link"
+      }
+    ]
+  },
+  
+///// Create & Add this snippet - cookiepolicy.liquid
+<div class="cookiepolicy" style="display:none;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-50">
+        <p>{{ settings.cookiepolicytext}}<a href="{{settings.cookiepolicylink}}"> {{settings.cookiepolicytl}}</a></p>
+      </div>
+      <div class="col-md-10 text-center">
+        <button id="cookieclose" class="btn">{{settings.cookiepolicybutton}}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    $( window ).on( "load", function() {
+      if(Cookies.get('eucookie') != 'true') {
+		$('.cookiepolicy').show();
+      }
+    });  
+  
+	$( "#cookieclose" ).click(function() {
+  		$( '.cookiepolicy' ).hide();
+        Cookies.set('eucookie', 'true', { expires: 7 });
+	});
+</script>
+
+<style>
+  .cookiepolicy {position:fixed; bottom:0px; width:100%; background-color:#f0f0f0;color:black;}
+  .cookiepolicy p {margin-bottom:0px;}
+  .cookiepolicy .row {padding:10px;}
+  .cookiepolicy a {font-weight:bold;}  
+</style>
