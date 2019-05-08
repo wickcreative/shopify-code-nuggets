@@ -1,0 +1,11 @@
+{% if first_time_accessed %}
+<!-- Event snippet for Shopify Conversion conversion page -->
+<script>
+  gtag('event', 'conversion', {
+      'send_to': 'AW-976559103/5kTACO3UxZ0BEP-31NED',
+      'value': {{ order.total_price | money_without_currency }},
+      'currency': 'USD',
+      'transaction_id': '{{order.id}}'
+  });
+</script>
+{% endif %}
