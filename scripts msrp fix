@@ -5,7 +5,7 @@
 # CHANGE TO THIS
 	def apply(line_item)
    # puts line_item.variant.inspect
-    if line_item.variant.instance_variable_defined?(:@compare_at_price)
+    if line_item.variant.instance_variable_defined?(:@compare_at_price) and (line_item.variant.compare_at_price * line_item.quantity) * @discount < line_item.line_price
         line_price = line_item.variant.compare_at_price * line_item.quantity
     else
         line_price = line_item.line_price
