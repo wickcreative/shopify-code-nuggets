@@ -6,15 +6,16 @@
       <thead>
         <tr>
             <td>Sku</td>
+          	<td>Sku</td>
             <td>Qty</td>
-            <td>Cost</td>
+            <td>Price</td>
             <td>Product Name</td>
-                <td>Variant Name</td>
-              <td>Variant Image</td>
-              <td>Product Page Url</td>
-              <td>Category</td>
-              <td>Collection</td>
-              <td>Gender</td>
+         	<td>Variant Name</td>
+           	<td>Variant Image</td>
+           	<td>Product Page Url</td>
+           	<td>Category</td>
+           	<td>Collections</td>
+           	<td>Gender</td>
         </tr>
       </thead>
         <tbody id="product">
@@ -23,15 +24,16 @@
                 
             <tr>
                 <td>{{variant.sku}}</td>
+              	<td>{{variant.barcode}}</td>
                 <td>{{variant.inventory_quantity}}</td>
                 <td>{{variant.price | money_without_currency}}</td>
                 <td>{{product.title}}</td>
                         <td>{{variant.title}}</td>
-                      <td>https://cdn.shopify.com/s/files/1/0790/7429/{{ variant.image }}</td>
-                      <td>http://www.fjallraven.us/products/{{ product.handle }}</td>
+                      <td>https:{{ variant.image | img_url:"master" }}</td>
+                      <td>{{ shop.url }}/products/{{ product.handle }}</td>
                       <td>{{ product.type }}</td>
                       <td>{% for collection in product.collections %} {{ collection.title }} {% endfor %}</td>
-                      <td>{% if product.tags contains 'Womens' %}Womens{% elsif product.tags contains 'Mens' %}Mens{% elsif product.tags contains 'Kids' %}Kids{% else %}Undefined{% endif %}
+                      <td>{% if product.tags contains 'womens' %}Womens{% elsif product.tags contains 'mens' %}Mens{% elsif product.tags contains 'kids' %}Kids{% else %}Unisex{% endif %}
                          </td>
             </tr>
           {% endfor %}
