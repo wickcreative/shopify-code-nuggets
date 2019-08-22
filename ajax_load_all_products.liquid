@@ -5,17 +5,17 @@
   	<table width="100%" border="0" cellspacing="0" cellpadding="0">
       	<thead>
         	<tr>
-            	<td>Sku</td>
-          		<td>UPC</td>
-          		<td>Description</td>
-            	<td>Qty</td>
-            	<td>Price</td>
-            	<td>Product Name</td>
-         		<td>Variant Name</td>
-           		<td>Variant Image</td>
-           		<td>Product Page Url</td>
-           		<td>Category</td>
-           		<td>Collections</td>
+			<td>Sku</td>
+			<td>UPC</td>
+			<td>Description</td>
+			<td>Qty</td>
+			<td>Price</td>
+			<td>Product Name</td>
+			<td>Variant Name</td>
+			<td>Variant Image</td>
+			<td>Product Page Url</td>
+			<td>Category</td>
+			<td>Collections</td>
            		<td>Gender</td>
         	</tr>
       	</thead>
@@ -25,16 +25,16 @@
             	<tr>
                 	<td>{{variant.sku}}</td>
               		<td>{{variant.barcode}}</td>
-                    <td>{{product.description | strip_html | remove: "split"}}</td>
-                    <td>{{variant.inventory_quantity}}</td>
-                    <td>{{variant.price | money_without_currency}}</td>
-                    <td>{{product.title}}</td>
-                    <td>{{variant.title}}</td>
-                    <td>https:{{ variant.image | img_url:"master" }}</td>
-                    <td>{{ shop.url }}/products/{{ product.handle }}</td>
-                    <td>{{ product.type }}</td>
-                    <td>{% for collection in product.collections %} {{ collection.title }} {% endfor %}</td>
-                    <td>{% if product.tags contains 'womens' %}Womens{% elsif product.tags contains 'mens' %}Mens{% elsif product.tags contains 'kids' %}Kids{% else %}Unisex{% endif %}</td>
+               		<td>{{product.description | strip_html | remove: "split"}}</td>
+                    	<td>{{variant.inventory_quantity}}</td>
+                    	<td>{{variant.price | money_without_currency}}</td>
+                    	<td>{{product.title}}</td>
+                    	<td>{{variant.title}}</td>
+                    	<td>https:{{ variant.image | img_url:"master" }}</td>
+                    	<td>{{ shop.url }}/products/{{ product.handle }}</td>
+                    	<td>{{ product.type }}</td>
+                    	<td>{% for collection in product.collections %} {{ collection.title }} {% endfor %}</td>
+                    	<td>{% if product.tags contains 'womens' %}Womens{% elsif product.tags contains 'mens' %}Mens{% elsif product.tags contains 'kids' %}Kids{% else %}Unisex{% endif %}</td>
             	</tr>
        		{% endfor %}
     	{% endfor %}
@@ -47,16 +47,16 @@
              	$.ajax({
                 	type: 'GET',
                   	url: '{{ shop.url }}{{ collection.url }}?page='+i,
-                    success: function(data) {
-                    	var filteredData = $(data).filter("#product"); // THIS IS THE DIV SURROUNDING THE ROWS YOU WANT
-                      	var tableget = $(data).filter("table"),
-                     	tbodyget = $(tableget).find('tbody#product');
-                      	tbodyget.insertBefore( $("#product-list-foot") ); // THIS IS A LAST ITEM AFTER THE LIST
+                    	success: function(data) {
+                    		var filteredData = $(data).filter("#product"); // THIS IS THE DIV SURROUNDING THE ROWS YOU WANT
+                      		var tableget = $(data).filter("table"),
+                     		tbodyget = $(tableget).find('tbody#product');
+                      		tbodyget.insertBefore( $("#product-list-foot") ); // THIS IS A LAST ITEM AFTER THE LIST
                  	},
-                    error: function(jqXHR, textStatus, errorThrown) {
-                    	console.log(textStatus, errorThrown);
+                    	error: function(jqXHR, textStatus, errorThrown) {
+                    		console.log(textStatus, errorThrown);
                  	},
-                    dataType: "html"
+                    	dataType: "html"
           		});
         	} // PUT A LISTENER ON THE AJAX IF YOU CARE ABOUT THEM BEING IN ALPHABETICAL ORDER
   		});
