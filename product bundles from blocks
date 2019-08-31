@@ -1,0 +1,84 @@
+          <select id="pricegroups">
+            <option disabled selected>Select Package</option>
+            {% for block in section.blocks %}
+            <option class="{{block.settings.title | handleize}}" data-tier="{{block.settings.pricetier}}" data-pounds="{{block.settings.pounds}}">{{block.settings.title}}</option>
+            {% endfor %}
+          </select>
+          
+          <script>
+            jQuery('#pricegroups').on('change', function(e) {
+                var optionSelected = jQuery("option:selected", this);
+                var note = optionSelected.html();
+  				var pounds = jQuery(optionSelected).attr("data-pounds");
+                var result = parseInt(pounds, 10) / 4;
+                var resultfull = parseInt(pounds, 10);
+              jQuery("#package-details").val(note);
+              	console.log(result);
+              	var tier = jQuery(optionSelected).attr("data-tier");
+              	console.log(tier);
+                jQuery('#option-select-tier option:contains("'+tier+'")').prop('selected', true).trigger('change');
+                jQuery("#quantity").val(result);
+                setTimeout(function(){ 
+                 var price = jQuery('.sell-price').text().replace('\u0024', '') ;
+                  var compare = jQuery('.compare-at').text().replace('\u0024', '') ;
+                  
+                  console.log(price);
+                 var pint = parseInt(price, 10)*result;
+                  console.log(pint);
+                 var pintall = parseInt(price, 10)*resultfull;
+                  var every = parseInt(compare, 10)*resultfull;
+                  var saved = every - pintall;
+                  console.log(pintall);
+                 jQuery(".totalnum").html(pintall);
+                 jQuery(".downp").html(pint);
+                  jQuery(".usave").html(saved);
+                }, 300);
+			});
+          </script>
+          <br/><br/>
+          <table style="width:100%;"><tr>
+            <td>Total Price: $<span class="totalnum">0</span></td>
+            <td>Due Today: $<span class="downp">0</span></td>
+            <td>You Save: $<span class="usave">0</span></td>
+            </tr>
+          </table>
+          
+          
+        
+        
+        
+        
+          "blocks": [
+    {
+      "type": "text",
+      "name": "Price Group - Beef",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Name for this price group"
+        },
+    {
+      "type": "range",
+      "id": "pounds",
+      "label": "Total Pounds",
+      "min": 60,
+      "max": 300,
+      "step": 4,
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "pricetier",
+      "label": "Price Tier",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 1
+    }
+      ]
+    }
+  ]
+        
+        
+          
