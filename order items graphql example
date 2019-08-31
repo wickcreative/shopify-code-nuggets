@@ -1,0 +1,26 @@
+    query {
+    order(id: "gid://shopify/Order/1024213516369") {
+            lineItems(first: 20) {
+            edges{
+              node {
+                variant {
+                  id
+                  inventoryItem {
+                    inventoryLevels(first: 1) {
+                      edges {
+                        node {
+                          location {
+                            name
+                            id
+                          }
+                          available
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          } 
+         }
+        }
