@@ -1,0 +1,118 @@
+{% layout none %}
+{% paginate collection.products by 50 %}
+<table>
+  <tr>
+<th>id</th>
+<th>title</th>
+<th>description</th>
+<th>google_product_category</th>
+<th>product_type</th>
+<th>link</th>
+<th>mobile_link</th>
+<th>image_link</th>
+<th>additional_image_link</th>
+<th>condition</th>
+<th>availability</th>
+<th>availability_date</th>
+<th>price</th>
+<th>sale_price</th>
+<th>sale_price_effective_date</th>
+<th>gtin</th>
+<th>brand</th>
+<th>mpn</th>
+<th>identifier_exists</th>
+<th>item_group_id</th>
+<th>gender</th>
+<th>age_group</th>
+<th>color</th>
+<th>material</th>
+<th>pattern</th>
+<th>size</th>
+<th>size_type</th>
+<th>size_system</th>
+<th>tax</th>
+<th>shipping</th>
+<th>shipping_weight</th>
+<th>multipack</th>
+<th>is_bundle</th>
+<th>syndeca_rating</th>
+<th>syndeca_video_link</th>
+<th>syndeca_swatch_image_link</th>
+<th>syndeca_promo_message</th>
+<th>syndeca_features</th>
+<th>syndeca_tooltip</th>
+  </tr>
+  <tbody id="product">
+
+    {% for product in collection.products %}
+    {% for variant in product.variants %}
+
+    <tr>
+      <td>{{variant.id}}</td>
+      <td>{{product.title}} {{variant.title}}</td>
+      <td>{{product.description | strip_html}}</td>
+      <td>Apparel & Accessories > Clothing</td>
+      <td>Apparel & Accessories > Clothing > {{product.type}}</td>
+      <td>{{shop.url}}{{variant.url}}</td>
+      <td>{{shop.url}}{{variant.url}}</td>
+      <td>https:{{variant | img_url: '1000x'}}</td>
+      <td>https:{{product | img_url: '1000x'}}</td>
+      <td>new</td>
+      <td>{% if variant.inventory_quantity > 0 %}in stock{%else%}out of stock{%endif%}</td>
+      <td></td>
+      <td>{{variant.price | money_without_currency}}</td>
+      <td>{{variant.compare_at_price | money_without_currency}}</td>
+      <td></td>
+      <td>{{variant.barcode}}</td>
+      <td>Royal Robbins</td>
+      <td>{{variant.sku}}</td>
+      <td></td>
+      <td>{{product.id}}</td>
+      <td>{% if product.tags contains 'womens' %}womens{% elsif product.tags contains 'mens' %}mens{% elsif product.tags contains 'kids' %}kids{% else %}unisex{% endif %}
+      </td>
+      <td>Adult</td>
+      <td>{{variant.option1}}</td>
+      <td></td>
+      <td></td>
+      <td>{{variant.option2}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>{{variant.weight}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>https:{{variant | img_url: '1000x'}}</td>
+      <td></td>
+      <td>{{product.description | strip_html}}</td>
+      <td>{{product.title}} {{variant.title}}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script>
+  $(document).ready(function(){
+    for (i = 2; i <= {{ paginate.pages }}; i++) { // NEEDS TO LIE WITHIN THE PAGINATE PARAMETERS
+      $.ajax({
+        type: 'GET',
+        url: '{{shop.secure_url}}/{{ collection.url }}?page='+i,
+        success: function(data) {
+          var filteredData = $(data).filter("#product"); // THIS IS THE DIV SURROUNDING THE ROWS YOU WANT
+          var tableget = $(data).filter("table"),
+              tbodyget = $(tableget).find('tbody#product').html();
+          $('tbody#product').append(tbodyget); // THIS IS A LAST ITEM AFTER THE LIST
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          console.log(textStatus, errorThrown);
+        },
+        dataType: "html"
+      });
+    } // PUT A LISTENER ON THE AJAX IF YOU CARE ABOUT THEM BEING IN ALPHABETICAL ORDER
+  });
+</script>
+{% endpaginate %}
