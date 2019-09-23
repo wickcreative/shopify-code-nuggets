@@ -1,0 +1,68 @@
+{% if template contains "collection" %}
+<script>
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+};
+
+
+$( document ).ready(function() {
+	var cart = getUrlParameter('cart');
+  	if (cart == undefined) {} else { 
+  		var items = cart.split("x"); 
+    	console.log("reset the cart");
+    	$.ajax({
+      		type: "POST",
+      		url: '/cart/clear.js',
+            dataType: 'json',
+      		success: function(){
+              	console.log("cart cleared, now let's fill it");
+                    $.each(items, function( index, value ) {
+                        var line = items[index].split("i");
+                        var bar = line[0];
+                        var vid = $('.allitems[data-bar="'+bar+'"]').first().data( "id" );
+                        var vqt = line[1];
+                      	var setto = 1000 * index
+                        setTimeout(function(){ 
+                        $.ajax({
+                            type: 'POST',
+                            url: '/cart/add.js',
+                          data: {
+                            quantity:vqt,
+                            id:vid
+                          },
+                            dataType: 'json',
+                            success: function() { 
+                                console.log("all items added");
+                            }
+                        }).fail(function($xhr) {
+                            var data = $xhr.responseJSON;
+                            console.log(data);
+                        });
+                          }, setto);
+                    });               
+      		}
+    	});
+    }
+  }); 
+</script>
+
+<div class="productlist" style="display:none;">
+  {% for product in collections.all.products %}
+  	{% for variant in product.variants %}
+  		<div class="allitems" data-bar="{{variant.barcode}}" data-id="{{variant.id}}"></div>
+  	{%endfor%}
+  {%endfor%}
+</div>
+
+{% endif %}
