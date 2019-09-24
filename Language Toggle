@@ -1,0 +1,95 @@
+// put this in theme settings
+
+  {
+    "name": "Language Toggle",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "languageon",
+        "label": "Show the language \/ region toggle?",
+        "default": true
+      }
+    ]
+  },
+  
+  
+  // put the include whereever you want the Drop down.
+  {% include 'langdrop' %}
+  
+  
+  //  langdrop.liquid snippet
+  
+         {% if settings.languageon %}
+       <span class="lange">
+                   <li class=" langdrop dropdown"><a href="#" class="{% if link.active %} current{% endif %}">
+              <img src="{{'ca.svg' | asset_url}}">
+              <span>ENG</span> <em class="fa fa-angle-down"></em>
+              
+              </a>
+              <div class="dropdown-content">
+              <ul>
+                 <li><a href="https://fr.fjallraven.ca"{% if l.active %} class="current"{% endif %}>
+                  <img src="{{'ca.svg' | asset_url}}">
+                  FR</a></li>
+                <li><a href="https://www.fjallraven.us"{% if l.active %} class="current"{% endif %}>
+                  <img src="{{'us.svg' | asset_url}}">ENG</a></li>
+
+              </ul>
+            </div>
+            </li>
+       </span>
+              <span class="langf" style="display:none;">
+                   <li class=" langdrop dropdown">
+                     <a href="#" class="{% if link.active %} current{% endif %}">
+              <img src="{{'ca.svg' | asset_url}}">
+              <span>FR</span> <em class="fa fa-angle-down"></em>
+              
+              </a>
+              <div class="dropdown-content">
+              <ul>
+                 <li><a href="https://bit.ly/2JkEt5e"{% if l.active %} class="current"{% endif %}>
+                  <img src="{{'ca.svg' | asset_url}}">
+                  ENG</a></li>
+                <li><a href="https://www.fjallraven.us"{% if l.active %} class="current"{% endif %}>
+                  <img src="{{'us.svg' | asset_url}}">ENG</a></li>
+
+              </ul>
+            </div>
+            </li>
+       </span>
+       <script type="text/javascript">
+          $(document).ready(function () {
+            if(window.location.href.indexOf("fr.") > -1) {
+              $('.lange').hide();
+              $('.langf').show();
+            }
+          });
+       </script>
+            <style>
+              .langdrop .dropdown-content {
+                  position: absolute;
+                  background-color: #f1f1f1;
+                  min-width: 80px;
+                  z-index: 1;
+                  margin-left: -5px;
+                  font-size: 12px;
+              }
+              .langdrop li {
+                  color: black;
+                  padding: 5px !important;
+                  text-decoration: none;
+                  display: block;
+                  text-align: left;
+              }
+              .langdrop a:hover {
+                  background-color: transparent !important;
+                  color: #CC0002 !important;
+              }
+              .langdrop img {
+                 width:1.5em;
+                margin-right:5px;
+              }
+            </style>
+          </ul>
+
+          {% endif %}
