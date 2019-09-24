@@ -1,0 +1,88 @@
+/// put this at the bottom of theme
+
+    {% if settings.geoalert %}
+    {% include 'geoalert' %}
+    {% endif%}
+
+/// put this in theme settings
+
+  {
+    "name": "Geo Alert",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "geoalert",
+        "label": "Show the geotarget redirect message when applicable",
+        "default": false
+      }
+    ]
+  },
+
+
+//start geoalert.liquid
+
+  <div id="geopop" class="white-popup mfp-hide mfp-with-anim">
+    <div class="row">
+      <div class="col-md-60 text-center">
+                        <img src="{{ "logo19.svg" | asset_url }}"
+                     alt="{{ settings.logo.alt | default: shop.name }}"
+                     itemprop="logo" style="width:200px;margin-bottom:40px;">
+          <h2 style="font-family:
+AF-headline
+;">SELECT A LOCATION</h2>
+          <hr />
+          <p>It appears you are located outside of Canada, however you are about to enter the Canadian online store.<br/>
+  	Would you like to proceed to the Canadian online store?</p>
+        <a href=""class="btn continue">Continue to Canadian Store</a><br/><br/>
+        <a href="https://www.fjallraven.us" class="continue btn">Visit the US Store</a>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+
+  
+	$( ".cookie-accept" ).click(function() {
+		$(".cookie-wrap").hide();
+  		Cookies.set("geonote", "selected", { expires: 1 });
+	});
+  
+  	$( ".continue" ).click(function() {
+  	Cookies.set("geonote", "selected", { expires: 1 });
+      $('#geopop').hide();
+      $.magnificPopup.close();
+	});
+  
+    	$( ".mfp-close" ).click(function() {
+  	Cookies.set("geonote", "selected", { expires: 1 });
+      $('#geopop').hide();
+      $.magnificPopup.close();
+	});
+ 
+  
+	var myCookie = Cookies.get('geonote');
+  
+  	if (myCookie == null) {
+        $.get("http://ipinfo.io", function (response) {
+            console.log(response.country);
+            var urcountry = response.country;
+            if (urcountry == "US") {
+                        $.magnificPopup.open({
+                          removalDelay: 1000,
+                          callbacks: {
+                            beforeOpen: function() {
+                              this.st.mainClass = 'mfp-move-horizontal'
+                            }
+                          },
+                          items: {
+                            src: '#geopop',
+                            type: 'inline'
+                          }
+                        });
+            }
+        }, "jsonp");
+   	}
+</script>
