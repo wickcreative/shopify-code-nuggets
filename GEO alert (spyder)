@@ -1,0 +1,208 @@
+<div id="geopopeur" class="white-popup mfp-hide mfp-with-anim">
+    	<div class="row">
+      		<div class="col-md-60 text-center">
+           		<img src="{{ "logoblack.svg" | asset_url }}" alt="{{ settings.logo.alt | default: shop.name }}"itemprop="logo" style="width:200px;margin-bottom:40px;">
+          		<h2>SELECT A LOCATION</h2>
+          		<hr />
+          		<p>Based on your location our website has <br/>picked these settings for you:<br/>
+                <strong>Europe (Austria, Belgium, France, Italy, Neterlands, Spain)  |  €EUR</strong></p>
+                <a href=""class="btn continue">Shop Now</a><br/><br/>
+                <p>Looking to ship to a different location?</p> 
+              <a href="#"class="btn continue altbut gbpbut">United Kingdom</a>
+              <a href="#"class="btn continue altbut chbut">Switzerland</a>
+        		<a href="https://www.spyder.com" class="continue btn altbut">Rest of World</a>
+      		</div>
+    	</div>
+  	</div>
+
+	<div id="geopopch" class="white-popup mfp-hide mfp-with-anim">
+    	<div class="row">
+      		<div class="col-md-60 text-center">
+           		<img src="{{ "logoblack.svg" | asset_url }}" alt="{{ settings.logo.alt | default: shop.name }}"itemprop="logo" style="width:200px;margin-bottom:40px;">
+          		<h2>SELECT A LOCATION</h2>
+          		<hr />
+          		<p>Based on your location our website has <br/>picked these settings for you:
+                <strong>Switzerland  |  CHF</strong></p>
+                <a href="#"class="btn continue">Shop Now</a><br/><br/>
+                <p>Looking to ship to a different location?</p> 
+        		<a href="#"class="btn continue altbut eurbut">Austria</a>
+              <a href="#"class="btn continue altbut eurbut">Belgium</a>
+              <a href="#"class="btn continue altbut eurbut">France</a>
+              <a href="#"class="btn continue altbut eurbut">Italy</a>
+              <a href="#"class="btn continue altbut eurbut">Netherlands</a>
+              <a href="#"class="btn continue altbut eurbut">Spain</a>
+              <a href="#"class="btn continue altbut gbpbut">United Kingdom</a>
+        		<a href="https://www.spyder.com" class="continue btn altbut">Rest of World</a>
+      		</div>
+    	</div>
+  	</div>
+
+	<div id="geopoprow" class="white-popup mfp-hide mfp-with-anim">
+    	<div class="row">
+      		<div class="col-md-60 text-center">
+           		<img src="{{ "logoblack.svg" | asset_url }}" alt="{{ settings.logo.alt | default: shop.name }}"itemprop="logo" style="width:200px;margin-bottom:40px;">
+          		<h2>SELECT A LOCATION</h2>
+          		<hr />
+          		<p>It looks like you're shopping outside our European locations.<br/>
+                  Please visit our US store for worldwide shipping options.</p>
+                <a href="https://www.spyder.com"class="btn continue">Shop Now</a><br/><br/>
+                <p>Looking to ship to a different location?</p> 
+        		<a href="#"class="btn continue altbut eurbut">Austria</a>
+              <a href="#"class="btn continue altbut eurbut">Belgium</a>
+              <a href="#"class="btn continue altbut eurbut">France</a>
+              <a href="#"class="btn continue altbut eurbut">Italy</a>
+              <a href="#"class="btn continue altbut eurbut">Netherlands</a>
+              <a href="#"class="btn continue altbut eurbut">Spain</a>
+              <a href="#"class="btn continue altbut chbut">Switzerland</a>              
+              <a href="#"class="btn continue altbut gbpbut">United Kingdom</a>
+      		</div>
+    	</div>
+  	</div>
+
+	<div id="geopopgbp" class="white-popup mfp-hide mfp-with-anim">
+    	<div class="row">
+      		<div class="col-md-60 text-center">
+           		<img src="{{ "logoblack.svg" | asset_url }}" alt="{{ settings.logo.alt | default: shop.name }}"itemprop="logo" style="width:200px;margin-bottom:40px;">
+          		<h2>SELECT A LOCATION</h2>
+          		<hr />
+          		<p>Based on your location our website has <br/>picked these settings for you:
+                <strong>United Kingdom  |  £GBP</strong></p>
+                <a href="#"class="btn continue">Shop Now</a><br/><br/>
+                <p>Looking to ship to a different location?</p> 
+        		<a href="#"class="btn continue altbut eurbut">Austria</a>
+              <a href="#"class="btn continue altbut eurbut">Belgium</a>
+              <a href="#"class="btn continue altbut eurbut">France</a>
+              <a href="#"class="btn continue altbut eurbut">Italy</a>
+              <a href="#"class="btn continue altbut eurbut">Netherlands</a>
+              <a href="#"class="btn continue altbut eurbut">Spain</a>
+              <a href="#"class="btn continue altbut chbut">Switzerland</a>
+        		<a href="https://www.spyder.com" class="continue btn altbut">Rest of World</a>
+      		</div>
+    	</div>
+  	</div>
+
+	<style>
+    	.altbut {
+			margin: 5px;
+    		border: 1px solid black;
+    		background: white;
+    		color: black;
+    		padding: 7px 20px;
+      	}
+	</style>
+
+	<script>
+     	function postToCart() {
+          	$.ajax({
+            	type: "POST",
+               	url: '/cart.js',
+              	data: {"attributes[geoalert]": true},
+              	success: function(d){
+        			console.log('i made a cart note')                          
+             	},
+             	dataType: 'json'
+        	});
+    	}
+      
+		$( ".cookie-accept" ).click(function() {
+			$(".cookie-wrap").hide();
+  			Cookies.set("geonote", "selected", { expires: 7 });
+          	postToCart();
+		});
+  
+  		$( ".continue" ).click(function() {
+  			Cookies.set("geonote", "selected", { expires: 7 });
+      		$('#geopop').hide();
+            $('#geopopgbp').hide();
+          	$('#geopopeur').hide();
+          	$('#geopopch').hide();
+          	$('#geopoprow').hide();
+      		$.magnificPopup.close();
+          	postToCart();
+		});
+  
+    	$( ".mfp-close" ).click(function() {
+  			Cookies.set("geonote", "selected", { expires: 7 });
+      		$('#geopop').hide();
+            $('#geopopgbp').hide();
+          	$('#geopopeur').hide();
+          	$('#geopopch').hide();
+          	$('#geopoprow').hide();
+      		$.magnificPopup.close();
+          	postToCart();
+		});
+
+		var myCookie = Cookies.get('geonote');
+      var myCartNote = {% if cart.attributes.geoalert %}true{%else%}undefined{%endif%};
+  
+  		if (myCookie == null && myCartNote == undefined) {
+        	$.get("http://ipinfo.io", function (response) {
+            	console.log(response.country);
+            	var urcountry = response.country;
+            	if (urcountry == "GB") {
+                	$.magnificPopup.open({
+                    	removalDelay: 1000,
+                      	callbacks: {
+                        	beforeOpen: function() {
+                           		this.st.mainClass = 'mfp-move-horizontal'
+                            }
+                       	},
+                        items: {
+                        	src: '#geopopgbp',
+                            type: 'inline'
+                       	}
+              		});
+                } else if (urcountry == "CH") {
+                	$.magnificPopup.open({
+                    	removalDelay: 1000,
+                      	callbacks: {
+                        	beforeOpen: function() {
+                           		this.st.mainClass = 'mfp-move-horizontal'
+                            }
+                       	},
+                        items: {
+                        	src: '#geopopch',
+                            type: 'inline'
+                       	}
+              		});
+                } else if (urcountry == "BE" || urcountry == "AT" || urcountry == "FR" || urcountry == "IT" || urcountry == "NL" || urcountry == "ES" ) {
+                	$.magnificPopup.open({
+                    	removalDelay: 1000,
+                      	callbacks: {
+                        	beforeOpen: function() {
+                           		this.st.mainClass = 'mfp-move-horizontal'
+                            }
+                       	},
+                        items: {
+                        	src: '#geopopeur',
+                            type: 'inline'
+                       	}
+              		});
+                } else {
+                	$.magnificPopup.open({
+                    	removalDelay: 1000,
+                      	callbacks: {
+                        	beforeOpen: function() {
+                           		this.st.mainClass = 'mfp-move-horizontal'
+                            }
+                       	},
+                        items: {
+                        	src: '#geopoprow',
+                            type: 'inline'
+                       	}
+              		});
+                }
+        	}, "jsonp");
+   		}
+	</script>
+
+{% comment %}
+Belgium
+Switzerland(own currency)
+Austria
+France
+Italy
+Netherlands
+Spain
+UK(own currency)
+{%endcomment%}
