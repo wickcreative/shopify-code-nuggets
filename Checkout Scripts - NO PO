@@ -1,0 +1,27 @@
+shippingaddress1 = Input.cart.shipping_address.address1.upcase.split[0...-1].join ' '
+checkpobox = ['P.O. BOX','PO BOX','POBOX','P.O BOX','PO. BOX','P.O.BOX','POST OFFICE BOX']
+
+shippingcity = Input.cart.shipping_address.city.upcase
+checkdiplomatic = ['APO','FPO','DPO']
+
+customer = Input.cart.customer
+Output.shipping_rates = Input.shipping_rates.delete_if do |shipping_rate|
+  if checkpobox.include?(shippingaddress1) or checkdiplomatic.any? { |val| shippingcity.include?(val) }
+    showship = ['UPS Ground','UPS 2nd Day','UPS Next Day']
+    case shipping_rate.name
+      when *showship
+        true
+      else
+        false
+    end
+  else
+     hideship = ['UPS Sure Post - PO BOX']
+    case shipping_rate.name
+      when *hideship
+        true
+      else
+        false
+    end   
+  end
+end
+Output.shipping_rates = Input.shipping_rates
