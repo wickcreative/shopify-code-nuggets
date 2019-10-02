@@ -1,0 +1,13 @@
+mutation {
+  inventoryBulkAdjustQuantityAtLocation(
+    locationId: "gid://shopify/Location/33266335824",
+    inventoryItemAdjustments: [
+      {inventoryItemId: "gid://shopify/InventoryItem/30187420713040", availableDelta: 1},
+      {inventoryItemId: "gid://shopify/InventoryItem/30187420745808", availableDelta: 10}
+      ]) {
+
+    inventoryLevels {
+      available
+    }
+  }
+}
