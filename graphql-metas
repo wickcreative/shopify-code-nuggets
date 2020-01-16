@@ -1,3 +1,42 @@
+mutation ($input: ProductInput!) {
+  productUpdate(input: $input) {
+    userErrors {
+      field
+      message
+    }
+    product {
+      metafields(first: 10) {
+        edges {
+          node {
+            id
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+}
+
+
+query variables
+{
+  "input": {
+    "id": "gid://shopify/Product/3750926385232",
+    "metafields": [
+      {
+        "id": "gid://shopify/Metafield/11319161978960",
+        "value": "10-2-cyclone-noserider-sac-de-surf-"
+      }
+    ]
+  }
+}
+
+
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+/\/\/\/\/\/\/\/\/\/
+
+
 {
   product(id: "gid://shopify/Product/3750926385232") {
     variants(first: 80) {
