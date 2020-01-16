@@ -1,0 +1,42 @@
+{
+  product(id: "gid://shopify/Product/3750926385232") {
+    variants(first: 80) {
+      edges {
+        node {
+          metafields(first: 8) {
+            edges {
+              node {
+                key
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+{
+  products(first: 2) {
+    edges {
+      node {
+        variants(first: 10) {
+          edges {
+            node {
+              metafields(first: 8) {
+                edges {
+                  node {
+                    value
+                    key
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
