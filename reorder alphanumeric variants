@@ -1,0 +1,10 @@
+<script>
+  var order = ['xs', 'xsmall','s', 'small', 'm', 'medium', 'l', 'large', 'xl', 'xlarge','xxl', 'xxlarge','xxxl', 'xxxlarge'];
+  var $wrapper = $('.size');
+  $wrapper.each(function(){
+    $(this).find('.swatch-element').sort(function(a, b) {
+      var aSize = $(a).data('value'), bSize = $(b).data('value');
+      return order.indexOf(aSize) - order.indexOf(bSize);
+    }).appendTo($(this));
+  });
+</script>
