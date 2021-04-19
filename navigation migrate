@@ -1,0 +1,123 @@
+// Get the existing JSON from /admin/menus/ID.json and put it here
+var existingMenu = JSON.parse('{}')
+// Do we need to lookup new id's from handles
+// Use this when transferring content between stores with the same handles
+var lookupNewIds = true;
+function addItem(item, parent_id) {
+  try {
+    var newSubject = lookupItemId(item)
+  } catch (error) {
+    return false
+  }
+  if(lookupNewIds && newSubject == item['subject_id']) {
+    return false
+  }
+  newItem = {
+    "title": item['title'],
+    "action": "create",
+    "id": --id,
+    "menu_item_type": item['type'],
+    "subject": item['subject'],
+    "subject_id": newSubject === null ? '' : newSubject,
+    "position": 1,
+    "subject_params": item['subject_params'] // This may needsto be populated differently
+  }
+  if(typeof parent_id !== "undefined") {
+    newItem['parent_menu_item_id'] = parent_id;
+  }
+  return newItem
+}
+function lookupItemId(item) {
+  if(item['type'] == 'http') {
+    return -1
+  }
+  console.log(item['subject'])
+  if(lookupNewIds) {
+    if(item['type'] == 'collection') {
+      var result = jQuery.get({
+        async: false,
+        url: '/admin/collections.json?handle=' + item['subject'],
+        dataType: "json"
+      }).responseJSON
+      return result['collections'][0]['id']
+    }
+    if(item['type'] == 'page') {
+      var result = jQuery.get({
+        async: false,
+        url: '/admin/pages.json?handle=' + item['subject'],
+        dataType: "json"
+      }).responseJSON
+      return result['pages'][0]['id']
+    }
+    if(item['type'] == 'page') {
+      var result = jQuery.get({
+        async: false,
+        url: '/admin/pages.json?handle=' + item['subject'],
+        dataType: "json"
+      }).responseJSON
+      return result['pages'][0]['id']
+    }
+    if(item['type'] == 'blog') {
+      var result = jQuery.get({
+        async: false,
+        url: '/admin/blogs.json?handle=' + item['subject'],
+        dataType: "json"
+      }).responseJSON
+      return result['blogs'][0]['id']
+    }
+  }
+  console.log('Subject ID not looked up or not found', item)
+  return item['subject_id']
+}
+var newMenu = {
+  'root': {'title': existingMenu['menu']['title']},
+  'changes': []
+}
+// If we are editing one, then we will modify it instead of create a new one
+var matches = document.location.pathname.match(/\/menus\/([\d]+)/)
+if(matches) {
+  newMenu['root']['id'] = matches[1];
+}
+var id = -1
+// Loop through the existing items and convert it to new format
+var newItem = null;
+existingMenu['menu']['items'].forEach(item => {
+  newItem = addItem(item);
+  if(newItem !== false) {
+    newMenu['changes'].push(newItem)
+    var parent_id = id
+    if(item.items.length > 0) {
+      item.items.forEach(item2 => {
+        newItem = addItem(item2, parent_id)
+        if(newItem !== false) {
+          newMenu['changes'].push(newItem)
+          var parent_id2 = id
+          if(item2.items.length > 0) {
+            item2.items.forEach(item3 => {
+              newItem = addItem(item3, parent_id2)
+              if(newItem !== false) {
+                newMenu['changes'].push(newItem)
+              }
+            })
+          }
+        }
+      })
+    }
+  }
+})
+// Save the new menu
+var result = jQuery.ajax({
+  type: "POST",
+  url: '/admin/menus/apply_changes.json',
+  // url: '/admin/menus/validate_changes.json',
+  dataType: 'json',
+  contentType: 'application/json',
+  async: false,
+  data: JSON.stringify(newMenu),
+  success: function (data) {
+    console.log(data);
+  }
+}).responseJSON
+if(result.valid) {
+  document.location.reload()
+}
