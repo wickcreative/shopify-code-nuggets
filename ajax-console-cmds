@@ -1,0 +1,51 @@
+  $.ajax({
+    type: "GET",
+    url: '/cart.js',
+      dataType: 'json', 
+    success: function(data) {
+      if(data) {
+        console.log(data);
+      }
+    }
+  });
+      
+      
+      $.ajax({
+  type: "POST",
+  url: '/cart/clear.js',
+  data: '',
+  dataType: 'json',
+  success: function() {
+  },
+  error: function(XMLHttpRequest, textStatus) {
+    /* error code */
+  }
+});
+
+
+$.ajax({
+  type: 'POST',
+  url: '/cart/update.js',
+  data: { updates: { "43353159139545:6825032f2e529b16534358d5c0868622":0 } },
+  dataType: 'json',
+  success: function() { 
+    console.log('success!');
+    location.reload();
+  }
+});
+
+
+var data = {quantity: request.variantQty,id: request.variantId,properties: {"clubsId": clubsid, "_stockLocation":"Custom", "_itemType":type}};
+$.ajax({
+  type: 'POST',
+    url: '/cart/add.js',
+  dataType: 'json',
+  data: data,
+  success: function(res){
+    console.log(res);
+ },
+    error: function(data){
+      console.log(data);
+  }
+  });
+
