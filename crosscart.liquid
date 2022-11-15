@@ -1,4 +1,5 @@
 <script>
+{%comment%}
 // this requires you make a page called cc in a template called cc on each site with the alternate sites sku - variant id
 // page template cc example code
 // {%- layout none -%}<script id="crosscart" type="application/json">
@@ -11,6 +12,7 @@
 
 //whenever a cart action is called use rebuildCrossCart(); if you need it to be delayed put the ms in the function rebuildCrossCart(300);
 // usually cart.js and sometimes global.js or in page functions if using ajax add to cart hacks.
+{%endcomment%}
 
 var catdat = "",
     carturl = "";
