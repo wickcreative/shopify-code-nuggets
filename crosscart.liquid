@@ -1,17 +1,17 @@
 <script>
 {%comment%}
-// this requires you make a page called cc in a template called cc on each site with the alternate sites sku - variant id
-// page template cc example code
-// {%- layout none -%}<script id="crosscart" type="application/json">
-// {{ shop.metafields.custom.crosscart }}
-// </script>
-// json example
-// {"items":{"sku":id,"sku":id}}
-// the json metafield is automated but exporting the data from matrixify as 2 columns then converting with make into a json meta that all updates every 3 hours
+ this requires you make a page called cc in a template called cc on each site with the alternate sites sku - variant id
+ page template cc example code
+ {%- layout none -%}<script id="crosscart" type="application/json">
+ {{ shop.metafields.custom.crosscart }}
+ </script>
+ json example
+ {"items":{"sku":id,"sku":id}}
+ the json metafield is automated but exporting the data from matrixify as 2 columns then converting with make into a json meta that all updates every 3 hours
 
 
-//whenever a cart action is called use rebuildCrossCart(); if you need it to be delayed put the ms in the function rebuildCrossCart(300);
-// usually cart.js and sometimes global.js or in page functions if using ajax add to cart hacks.
+whenever a cart action is called use rebuildCrossCart(); if you need it to be delayed put the ms in the function rebuildCrossCart(300);
+usually cart.js and sometimes global.js or in page functions if using ajax add to cart hacks.
 {%endcomment%}
 
 var catdat = "",
