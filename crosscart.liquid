@@ -1,0 +1,78 @@
+<script>
+// this requires you make a page called cc in a template called cc on each site with the alternate sites sku - variant id
+// page template cc example code
+// {%- layout none -%}<script id="crosscart" type="application/json">
+// {{ shop.metafields.custom.crosscart }}
+// </script>
+// json example
+// {"items":{"sku":id,"sku":id}}
+// the json metafield is automated but exporting the data from matrixify as 2 columns then converting with make into a json meta that all updates every 3 hours
+
+
+//whenever a cart action is called use rebuildCrossCart(); if you need it to be delayed put the ms in the function rebuildCrossCart(300);
+// usually cart.js and sometimes global.js or in page functions if using ajax add to cart hacks.
+
+var catdat = "",
+    carturl = "";
+
+function rebuildCrossCart(time){
+  carturl="";
+  catdat = "";
+  checkgwp();
+  setTimeout(function(){
+    console.log('rebuilding cross cart form')
+    $.ajax({
+       url:'/pages/cc',
+       type:'GET',
+       success: function(data){
+           var items = $('<div>').append(data).find('#crosscart').html();
+               catdat = jQuery.parseJSON(items);
+               buildcc(catdat);
+       }
+    });
+  }, time);
+}
+
+function buildcc(cat){
+  $.ajax({
+    type: "GET",
+    url: '/cart.js',
+    dataType: 'json', 
+    success: function(data) {
+      if(data.items.length > 0){
+      var iterate = $.each(data.items,function(key,value) { 
+        console.log('item: ' + cat.items[value.sku]);
+        carturl = "updates["+cat.items[value.sku]+"]="+value.quantity+"&"+carturl;
+      });
+    }else{
+      carturl = "clear";
+    }
+       $.when(iterate)
+        .then(updateurl(carturl.slice(0,-1)));
+    }
+  });
+}
+
+function updateurl(url){
+var uuurl = $('.brandmenu li:not(.active) a').attr('href'),
+    splitted = uuurl.split('/cart/'),
+    urlbase = splitted[0],
+    newurl = urlbase+"/cart/update?"+url;
+if(url == "clear"){
+  newurl = urlbase+"/cart/clear";
+}
+console.log(newurl);
+$('.brandmenu li:not(.active) a').attr('href',newurl);
+$.ajax({
+  type: 'POST',
+  url: '/cart/update.js',
+  data: {
+    'attributes[ccurl]': newurl
+  },
+  success: function(data) {
+  },
+  dataType: 'json'
+});
+}
+
+</script>
