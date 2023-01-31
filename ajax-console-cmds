@@ -49,3 +49,48 @@ $.ajax({
   }
   });
 
+
+
+
+
+//////
+
+
+
+$( document ).ready(function() {  
+$('.qatcopen').click(function(){
+    $(this).siblings('div').slideToggle('slow');
+
+});
+
+$('.qatcbutt').click(function(){
+  var atcstr = [];
+  $(this).parent().find('.opholder').each(function(){
+    var single_obj = {};
+    if ($(this).find('.qty').val() > 0) {
+      single_obj['quantity'] = $(this).find('.qty').val();
+      single_obj['id'] = parseInt($(this).data('vid'));
+      atcstr.push(single_obj);
+    }
+  });
+  atcall(atcstr);
+});
+});
+
+function atcall(pl){
+  console.log('pl',pl);
+  const itempl = { items: pl };
+  console.log('itempl',itempl);
+  $.ajax({
+    type: 'POST',
+    url: '/cart/add.js',
+    dataType: 'json',
+    data: itempl,
+    success: function(data){
+      console.log('success',data);
+    },
+    error: function(data){
+        console.log('error',data);
+    }
+  });
+}
