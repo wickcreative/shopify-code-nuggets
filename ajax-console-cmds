@@ -94,3 +94,18 @@ function atcall(pl){
     }
   });
 }
+
+
+
+$.ajax({
+  type: 'POST',
+  url: '/cart/change.js',
+  data: { quantity:1, id:"43415979491494:49da033a1067ffba2b4065879362f31f",properties: {"outlet": "nope"}},
+  dataType: 'json',
+  success: function(data) { 
+    console.log('success!',data);
+  },
+  error: function(data) { 
+    console.log('error',data);
+  }
+});
