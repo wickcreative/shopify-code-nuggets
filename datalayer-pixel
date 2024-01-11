@@ -1,0 +1,524 @@
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-C8J4');
+
+analytics.subscribe("checkout_started", (event) => {
+  console.log('event',event);
+  __DL__products = [];
+  let i = 0;
+  while (i < event.data.checkout.lineItems.length) {
+  console.log(event.data.checkout.lineItems[i].id);
+    __DL__products.push({
+        id : event.data.checkout.lineItems[i].id,
+        sku: event.data.checkout.lineItems[i].variant.sku,
+        variantId: event.data.checkout.lineItems[i].variant.id,
+        name: event.data.checkout.lineItems[i].variant.product.title,
+        productType: event.data.checkout.lineItems[i].variant.product.type,
+        price: event.data.checkout.lineItems[i].variant.price.amount,
+        quantity: event.data.checkout.lineItems[i].quantity,
+        description : event.data.checkout.lineItems[i].variant.product.title,
+        imageURL: event.data.checkout.lineItems[i].variant.image.src
+    });
+  i++;
+  }
+  transactionData = {
+    event: "Checkout Started",
+    timestamp: event.timestamp,
+    pageType:'Checkout Started',
+    id: event.id,
+    token: event.data.checkout.token,
+    url: event.context.document.location.href,
+    client_id: event.clientId,
+    email: event.data.checkout.email,
+    phone: event.data.checkout.phone,
+    first_name: event.data.checkout.shippingAddress.firstName,
+    last_name: event.data.checkout.shippingAddress.lastName,
+    address1: event.data.checkout.shippingAddress.address1,
+    address2: event.data.checkout.shippingAddress.address2,
+    city: event.data.checkout.shippingAddress.city,
+    country: event.data.checkout.shippingAddress.country,
+    countryCode: event.data.checkout.shippingAddress.countryCode,
+    province: event.data.checkout.shippingAddress.province,
+    provinceCode: event.data.checkout.shippingAddress.provinceCode,
+    zip: event.data.checkout.shippingAddress.zip,
+    transactionNumber: event.data.checkout.order.id,
+    transactionId: event.data.checkout.order.number,
+    currency: event.data.checkout.currencyCode,
+    transactionSubtotal: event.data.checkout.subtotalPrice.amount,
+    transactionShipping: event.data.checkout.shippingLine.price.amount,
+    transactionTotal: event.data.checkout.totalPrice.amount,
+    transactionTax: event.data.checkout.totalTax.amount,
+    products: __DL__products
+  };
+  
+  window.dataLayer.push(transactionData,{'pageType':'Checkout Started','event':'Checkout Started'});  
+  console.log("Checkout Started - Transaction Data"+" :"+JSON.stringify(transactionData, null, " "));
+
+// log state info
+  var logState = {
+      customerEmail: event.data.checkout.email,
+      logState: "Logged In",
+      customerInfo: {
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      timestamp     : event.timestamp,  
+      shippingInfo : {
+          fullName: event.data.checkout.shippingAddress.firstName,
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      billingInfo : {
+          fullName: event.data.checkout.billingAddress.firstName,
+          firstName: event.data.checkout.billingAddress.firstName,
+          lastName: event.data.checkout.billingAddress.lastName,
+          address1: event.data.checkout.billingAddress.address1,
+          address2: event.data.checkout.billingAddress.address2,
+          street: event.data.checkout.billingAddress.address1,
+          city: event.data.checkout.billingAddress.city,
+          province: event.data.checkout.billingAddress.province,
+          zip: event.data.checkout.billingAddress.zip,
+          country: event.data.checkout.billingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      currency: event.data.checkout.currencyCode,
+      pageType: 'Log State',
+      event: 'Log State'
+  } 
+  dataLayer.push(logState);
+  console.log("Log State"+" :"+JSON.stringify(logState, null, " "));
+});
+
+// checkout complete
+analytics.subscribe("checkout_completed", (event) => {
+  console.log('event',event);
+  __DL__products = [];
+  let i = 0;
+  while (i < event.data.checkout.lineItems.length) {
+  console.log(event.data.checkout.lineItems[i].id);
+    __DL__products.push({
+        id : event.data.checkout.lineItems[i].id,
+        sku: event.data.checkout.lineItems[i].variant.sku,
+        variantId: event.data.checkout.lineItems[i].variant.id,
+        name: event.data.checkout.lineItems[i].variant.product.title,
+        productType: event.data.checkout.lineItems[i].variant.product.type,
+        price: event.data.checkout.lineItems[i].variant.price.amount,
+        quantity: event.data.checkout.lineItems[i].quantity,
+        description : event.data.checkout.lineItems[i].variant.product.title,
+        imageURL: event.data.checkout.lineItems[i].variant.image.src
+    });
+  i++;
+  }
+  transactionData = {
+    event: "Transaction",
+    timestamp: event.timestamp,
+    pageType:'Transaction',
+    id: event.id,
+    token: event.data.checkout.token,
+    url: event.context.document.location.href,
+    client_id: event.clientId,
+    email: event.data.checkout.email,
+    phone: event.data.checkout.phone,
+    first_name: event.data.checkout.shippingAddress.firstName,
+    last_name: event.data.checkout.shippingAddress.lastName,
+    address1: event.data.checkout.shippingAddress.address1,
+    address2: event.data.checkout.shippingAddress.address2,
+    city: event.data.checkout.shippingAddress.city,
+    country: event.data.checkout.shippingAddress.country,
+    countryCode: event.data.checkout.shippingAddress.countryCode,
+    province: event.data.checkout.shippingAddress.province,
+    provinceCode: event.data.checkout.shippingAddress.provinceCode,
+    zip: event.data.checkout.shippingAddress.zip,
+    transactionNumber: event.data.checkout.order.id,
+    transactionId: event.data.checkout.order.number,
+    currency: event.data.checkout.currencyCode,
+    transactionSubtotal: event.data.checkout.subtotalPrice.amount,
+    transactionShipping: event.data.checkout.shippingLine.price.amount,
+    transactionTotal: event.data.checkout.totalPrice.amount,
+    transactionTax: event.data.checkout.totalTax.amount,
+    products: __DL__products
+  };
+  
+  window.dataLayer.push(transactionData,{'pageType':'Transaction','event':'Transaction'});  
+  console.log("Transaction - Transaction Data"+" :"+JSON.stringify(transactionData, null, " "));
+
+// log state info
+  var logState = {
+      customerEmail: event.data.checkout.email,
+      logState: "Logged In",
+      customerInfo: {
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      timestamp     : event.timestamp,  
+      shippingInfo : {
+          fullName: event.data.checkout.shippingAddress.firstName,
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      billingInfo : {
+          fullName: event.data.checkout.billingAddress.firstName,
+          firstName: event.data.checkout.billingAddress.firstName,
+          lastName: event.data.checkout.billingAddress.lastName,
+          address1: event.data.checkout.billingAddress.address1,
+          address2: event.data.checkout.billingAddress.address2,
+          street: event.data.checkout.billingAddress.address1,
+          city: event.data.checkout.billingAddress.city,
+          province: event.data.checkout.billingAddress.province,
+          zip: event.data.checkout.billingAddress.zip,
+          country: event.data.checkout.billingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      currency: event.data.checkout.currencyCode,
+      pageType: 'Log State',
+      event: 'Log State'
+  } 
+  dataLayer.push(logState);
+  console.log("Log State"+" :"+JSON.stringify(logState, null, " "));
+});
+
+//payment info
+analytics.subscribe("payment_info_submitted", (event) => {
+  console.log('event',event);
+  __DL__products = [];
+  let i = 0;
+  while (i < event.data.checkout.lineItems.length) {
+  console.log(event.data.checkout.lineItems[i].id);
+    __DL__products.push({
+        id : event.data.checkout.lineItems[i].id,
+        sku: event.data.checkout.lineItems[i].variant.sku,
+        variantId: event.data.checkout.lineItems[i].variant.id,
+        name: event.data.checkout.lineItems[i].variant.product.title,
+        productType: event.data.checkout.lineItems[i].variant.product.type,
+        price: event.data.checkout.lineItems[i].variant.price.amount,
+        quantity: event.data.checkout.lineItems[i].quantity,
+        description : event.data.checkout.lineItems[i].variant.product.title,
+        imageURL: event.data.checkout.lineItems[i].variant.image.src
+    });
+  i++;
+  }
+  transactionData = {
+    event: "Add Payment Info",
+    timestamp: event.timestamp,
+    pageType:'Add Payment Info',
+    id: event.id,
+    token: event.data.checkout.token,
+    url: event.context.document.location.href,
+    client_id: event.clientId,
+    email: event.data.checkout.email,
+    phone: event.data.checkout.phone,
+    first_name: event.data.checkout.shippingAddress.firstName,
+    last_name: event.data.checkout.shippingAddress.lastName,
+    address1: event.data.checkout.shippingAddress.address1,
+    address2: event.data.checkout.shippingAddress.address2,
+    city: event.data.checkout.shippingAddress.city,
+    country: event.data.checkout.shippingAddress.country,
+    countryCode: event.data.checkout.shippingAddress.countryCode,
+    province: event.data.checkout.shippingAddress.province,
+    provinceCode: event.data.checkout.shippingAddress.provinceCode,
+    zip: event.data.checkout.shippingAddress.zip,
+    transactionNumber: event.data.checkout.order.id,
+    transactionId: event.data.checkout.order.number,
+    currency: event.data.checkout.currencyCode,
+    transactionSubtotal: event.data.checkout.subtotalPrice.amount,
+    transactionShipping: event.data.checkout.shippingLine.price.amount,
+    transactionTotal: event.data.checkout.totalPrice.amount,
+    transactionTax: event.data.checkout.totalTax.amount,
+    products: __DL__products
+  };
+  
+  window.dataLayer.push(transactionData,{'pageType':'Add Payment Info','event':'Add Payment Info'});  
+  console.log("Add Payment Info - Transaction Data"+" :"+JSON.stringify(transactionData, null, " "));
+
+// log state info
+  var logState = {
+      customerEmail: event.data.checkout.email,
+      logState: "Logged In",
+      customerInfo: {
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      timestamp     : event.timestamp,  
+      shippingInfo : {
+          fullName: event.data.checkout.shippingAddress.firstName,
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      billingInfo : {
+          fullName: event.data.checkout.billingAddress.firstName,
+          firstName: event.data.checkout.billingAddress.firstName,
+          lastName: event.data.checkout.billingAddress.lastName,
+          address1: event.data.checkout.billingAddress.address1,
+          address2: event.data.checkout.billingAddress.address2,
+          street: event.data.checkout.billingAddress.address1,
+          city: event.data.checkout.billingAddress.city,
+          province: event.data.checkout.billingAddress.province,
+          zip: event.data.checkout.billingAddress.zip,
+          country: event.data.checkout.billingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      currency: event.data.checkout.currencyCode,
+      pageType: 'Log State',
+      event: 'Log State'
+  } 
+  dataLayer.push(logState);
+  console.log("Log State"+" :"+JSON.stringify(logState, null, " "));
+});
+
+// shipping info
+analytics.subscribe("checkout_shipping_info_submitted", (event) => {
+  console.log('event',event);
+  __DL__products = [];
+  let i = 0;
+  while (i < event.data.checkout.lineItems.length) {
+  console.log(event.data.checkout.lineItems[i].id);
+    __DL__products.push({
+        id : event.data.checkout.lineItems[i].id,
+        sku: event.data.checkout.lineItems[i].variant.sku,
+        variantId: event.data.checkout.lineItems[i].variant.id,
+        name: event.data.checkout.lineItems[i].variant.product.title,
+        productType: event.data.checkout.lineItems[i].variant.product.type,
+        price: event.data.checkout.lineItems[i].variant.price.amount,
+        quantity: event.data.checkout.lineItems[i].quantity,
+        description : event.data.checkout.lineItems[i].variant.product.title,
+        imageURL: event.data.checkout.lineItems[i].variant.image.src
+    });
+  i++;
+  }
+  transactionData = {
+    event: "Shipping Information",
+    timestamp: event.timestamp,
+    pageType:'Shipping Information',
+    id: event.id,
+    token: event.data.checkout.token,
+    url: event.context.document.location.href,
+    client_id: event.clientId,
+    email: event.data.checkout.email,
+    phone: event.data.checkout.phone,
+    first_name: event.data.checkout.shippingAddress.firstName,
+    last_name: event.data.checkout.shippingAddress.lastName,
+    address1: event.data.checkout.shippingAddress.address1,
+    address2: event.data.checkout.shippingAddress.address2,
+    city: event.data.checkout.shippingAddress.city,
+    country: event.data.checkout.shippingAddress.country,
+    countryCode: event.data.checkout.shippingAddress.countryCode,
+    province: event.data.checkout.shippingAddress.province,
+    provinceCode: event.data.checkout.shippingAddress.provinceCode,
+    zip: event.data.checkout.shippingAddress.zip,
+    transactionNumber: event.data.checkout.order.id,
+    transactionId: event.data.checkout.order.number,
+    currency: event.data.checkout.currencyCode,
+    transactionSubtotal: event.data.checkout.subtotalPrice.amount,
+    transactionShipping: event.data.checkout.shippingLine.price.amount,
+    transactionTotal: event.data.checkout.totalPrice.amount,
+    transactionTax: event.data.checkout.totalTax.amount,
+    products: __DL__products
+  };
+  
+  window.dataLayer.push(transactionData,{'pageType':'Shipping Information','event':'Shipping Information'});  
+  console.log("Shipping Information - Transaction Data"+" :"+JSON.stringify(transactionData, null, " "));
+
+// log state info
+  var logState = {
+      customerEmail: event.data.checkout.email,
+      logState: "Logged In",
+      customerInfo: {
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      timestamp     : event.timestamp,  
+      shippingInfo : {
+          fullName: event.data.checkout.shippingAddress.firstName,
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      billingInfo : {
+          fullName: event.data.checkout.billingAddress.firstName,
+          firstName: event.data.checkout.billingAddress.firstName,
+          lastName: event.data.checkout.billingAddress.lastName,
+          address1: event.data.checkout.billingAddress.address1,
+          address2: event.data.checkout.billingAddress.address2,
+          street: event.data.checkout.billingAddress.address1,
+          city: event.data.checkout.billingAddress.city,
+          province: event.data.checkout.billingAddress.province,
+          zip: event.data.checkout.billingAddress.zip,
+          country: event.data.checkout.billingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      currency: event.data.checkout.currencyCode,
+      pageType: 'Log State',
+      event: 'Log State'
+  } 
+  dataLayer.push(logState);
+  console.log("Log State"+" :"+JSON.stringify(logState, null, " "));
+});
+
+// address info
+analytics.subscribe("checkout_address_info_submitted", (event) => {
+  console.log('event',event);
+  __DL__products = [];
+  let i = 0;
+  while (i < event.data.checkout.lineItems.length) {
+  console.log(event.data.checkout.lineItems[i].id);
+    __DL__products.push({
+        id : event.data.checkout.lineItems[i].id,
+        sku: event.data.checkout.lineItems[i].variant.sku,
+        variantId: event.data.checkout.lineItems[i].variant.id,
+        name: event.data.checkout.lineItems[i].variant.product.title,
+        productType: event.data.checkout.lineItems[i].variant.product.type,
+        price: event.data.checkout.lineItems[i].variant.price.amount,
+        quantity: event.data.checkout.lineItems[i].quantity,
+        description : event.data.checkout.lineItems[i].variant.product.title,
+        imageURL: event.data.checkout.lineItems[i].variant.image.src
+    });
+  i++;
+  }
+  transactionData = {
+    event: "Customer Information",
+    timestamp: event.timestamp,
+    pageType:'Customer Information',
+    id: event.id,
+    token: event.data.checkout.token,
+    url: event.context.document.location.href,
+    client_id: event.clientId,
+    email: event.data.checkout.email,
+    phone: event.data.checkout.phone,
+    first_name: event.data.checkout.shippingAddress.firstName,
+    last_name: event.data.checkout.shippingAddress.lastName,
+    address1: event.data.checkout.shippingAddress.address1,
+    address2: event.data.checkout.shippingAddress.address2,
+    city: event.data.checkout.shippingAddress.city,
+    country: event.data.checkout.shippingAddress.country,
+    countryCode: event.data.checkout.shippingAddress.countryCode,
+    province: event.data.checkout.shippingAddress.province,
+    provinceCode: event.data.checkout.shippingAddress.provinceCode,
+    zip: event.data.checkout.shippingAddress.zip,
+    transactionNumber: event.data.checkout.order.id,
+    transactionId: event.data.checkout.order.number,
+    currency: event.data.checkout.currencyCode,
+    transactionSubtotal: event.data.checkout.subtotalPrice.amount,
+    transactionShipping: event.data.checkout.shippingLine.price.amount,
+    transactionTotal: event.data.checkout.totalPrice.amount,
+    transactionTax: event.data.checkout.totalTax.amount,
+    products: __DL__products
+  };
+  
+  window.dataLayer.push(transactionData,{'pageType':'Customer Information','event':'Customer Information'});  
+  console.log("Customer Information - Transaction Data"+" :"+JSON.stringify(transactionData, null, " "));
+
+// log state info
+  var logState = {
+      customerEmail: event.data.checkout.email,
+      logState: "Logged In",
+      customerInfo: {
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      timestamp     : event.timestamp,  
+      shippingInfo : {
+          fullName: event.data.checkout.shippingAddress.firstName,
+          firstName: event.data.checkout.shippingAddress.firstName,
+          lastName: event.data.checkout.shippingAddress.lastName,
+          address1: event.data.checkout.shippingAddress.address1,
+          address2: event.data.checkout.shippingAddress.address2,
+          street: event.data.checkout.shippingAddress.address1,
+          city: event.data.checkout.shippingAddress.city,
+          province: event.data.checkout.shippingAddress.province,
+          zip: event.data.checkout.shippingAddress.zip,
+          country: event.data.checkout.shippingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      billingInfo : {
+          fullName: event.data.checkout.billingAddress.firstName,
+          firstName: event.data.checkout.billingAddress.firstName,
+          lastName: event.data.checkout.billingAddress.lastName,
+          address1: event.data.checkout.billingAddress.address1,
+          address2: event.data.checkout.billingAddress.address2,
+          street: event.data.checkout.billingAddress.address1,
+          city: event.data.checkout.billingAddress.city,
+          province: event.data.checkout.billingAddress.province,
+          zip: event.data.checkout.billingAddress.zip,
+          country: event.data.checkout.billingAddress.country,
+          phone: event.data.checkout.phone,
+      },
+      currency: event.data.checkout.currencyCode,
+      pageType: 'Log State',
+      event: 'Log State'
+  } 
+  dataLayer.push(logState);
+  console.log("Log State"+" :"+JSON.stringify(logState, null, " "));
+});
