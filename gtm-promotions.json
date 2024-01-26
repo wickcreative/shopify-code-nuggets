@@ -1,0 +1,504 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2024-01-26 21:10:17",
+    "containerVersion": {
+        "path": "accounts/1348989599/containers/9888035/versions/0",
+        "accountId": "1348989599",
+        "containerId": "9888035",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/1348989599/containers/9888035",
+            "accountId": "1348989599",
+            "containerId": "9888035",
+            "name": "www.manduka.com",
+            "publicId": "GTM-TD3J3X4",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1561037531251",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/1348989599/containers/9888035/workspaces?apiLink=container",
+            "features": {
+                "supportUserPermissions": true,
+                "supportEnvironments": true,
+                "supportWorkspaces": true,
+                "supportGtagConfigs": false,
+                "supportBuiltInVariables": true,
+                "supportClients": false,
+                "supportFolders": true,
+                "supportTags": true,
+                "supportTemplates": true,
+                "supportTriggers": true,
+                "supportVariables": true,
+                "supportVersions": true,
+                "supportZones": true,
+                "supportTransformations": false
+            },
+            "tagIds": [
+                "GTM-TD3J3X4"
+            ]
+        },
+        "tag": [
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "tagId": "290",
+                "name": "GA4 - Select Promotion",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-creative-name}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-creative-slot}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-location-id}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-promotion-id}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-promotion-name}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "select_promotion"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 ID}}"
+                    }
+                ],
+                "fingerprint": "1706303250051",
+                "firingTriggerId": [
+                    "286"
+                ],
+                "parentFolderId": "292",
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "tagId": "291",
+                "name": "GA4 - View Promotion",
+                "type": "gaawe",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "sendEcommerceData",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enhancedUserId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "LIST",
+                        "key": "eventSettingsTable",
+                        "list": [
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-creative-name}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "creative_slot"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-creative-slot}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "location_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-location-id}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_id"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-promotion-id}}"
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "MAP",
+                                "map": [
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameter",
+                                        "value": "promotion_name"
+                                    },
+                                    {
+                                        "type": "TEMPLATE",
+                                        "key": "parameterValue",
+                                        "value": "{{dlv - Global - data-promotion-name}}"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventName",
+                        "value": "view_promotion"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "measurementIdOverride",
+                        "value": "{{GA4 ID}}"
+                    }
+                ],
+                "fingerprint": "1706303250050",
+                "firingTriggerId": [
+                    "287"
+                ],
+                "parentFolderId": "292",
+                "tagFiringOption": "ONCE_PER_EVENT",
+                "monitoringMetadata": {
+                    "type": "MAP"
+                },
+                "consentSettings": {
+                    "consentStatus": "NOT_SET"
+                }
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "triggerId": "286",
+                "name": "Event - select promotion",
+                "type": "CLICK",
+                "filter": [
+                    {
+                        "type": "CSS_SELECTOR",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{Click Element}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "[data-promotion]"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1706303260442",
+                "parentFolderId": "292"
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "triggerId": "287",
+                "name": "Event - view promotion",
+                "type": "ELEMENT_VISIBILITY",
+                "fingerprint": "1706303260441",
+                "parentFolderId": "292",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "useOnScreenDuration",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "useDomChangeListener",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "elementSelector",
+                        "value": "[data-promotion]"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "firingFrequency",
+                        "value": "MANY_PER_ELEMENT"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "selectorType",
+                        "value": "CSS"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "onScreenRatio",
+                        "value": "50"
+                    }
+                ]
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "variableId": "283",
+                "name": "dlv - Global - data-creative-name",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.element.dataset.creativeName"
+                    }
+                ],
+                "fingerprint": "1706303274242",
+                "parentFolderId": "292",
+                "formatValue": {}
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "variableId": "284",
+                "name": "dlv - Global - data-creative-slot",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.element.dataset.creativeSlot"
+                    }
+                ],
+                "fingerprint": "1706303274241",
+                "parentFolderId": "292",
+                "formatValue": {}
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "variableId": "285",
+                "name": "dlv - Global - data-promotion-name",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.element.dataset.promotionName"
+                    }
+                ],
+                "fingerprint": "1706303274244",
+                "parentFolderId": "292",
+                "formatValue": {}
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "variableId": "288",
+                "name": "dlv - Global - data-promotion-id",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.element.dataset.promotionId"
+                    }
+                ],
+                "fingerprint": "1706303274245",
+                "parentFolderId": "292",
+                "formatValue": {}
+            },
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "variableId": "289",
+                "name": "dlv - Global - data-location-id",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "gtm.element.dataset.locationId"
+                    }
+                ],
+                "fingerprint": "1706303274246",
+                "parentFolderId": "292",
+                "formatValue": {}
+            }
+        ],
+        "folder": [
+            {
+                "accountId": "1348989599",
+                "containerId": "9888035",
+                "folderId": "292",
+                "name": "Promotions",
+                "fingerprint": "1706303249398"
+            }
+        ],
+        "fingerprint": "1706303417554",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/1348989599/containers/9888035/versions/0?apiLink=version"
+    }
+}
