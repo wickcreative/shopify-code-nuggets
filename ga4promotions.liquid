@@ -1,0 +1,26 @@
+<script>
+$(document).ready(function(){
+$('#MainContent .shopify-section').each(function(i){
+  var name = $(this).find('p').text().trim().substring(0, 30).replaceAll(" ", "-").replace(/(\r\n|\n|\r)/gm, ""),
+    id = $(this).attr('id'),
+    num = i+1,
+    item = $(this).find('div:first-of-type').attr('class').split(' ')[0];
+  console.log(item);
+  $(this).find('a').each(function(){
+    $(this).attr('data-promotion','').attr('data-creative-name',name).attr('data-creative-slot',num).attr('data-location-id','{{ template.name }}').attr('data-promotion-id',name).attr('data-promotion-name',item);
+  })
+})
+})
+</script>
+{% comment %}
+looking to achieve
+
+
+<a data-promotion 
+data-creative-name="red t shirts" 
+data-creative-slot="hero banner" 
+data-location-id="home page" 
+data-promotion-id="P_12345" 
+data-promotion-name="summer sale">
+
+{% endcomment %}
